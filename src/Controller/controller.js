@@ -1,17 +1,20 @@
 import fs from 'fs'
-const path = 'src/asset'
+import path from 'path';
+const ROUTE_CACHE_PATH =path.resolve(path.join(process.cwd(), 'src/asset'));
 const readWriteFile = async(req,res)=>{
     try {
         let dateTime = new Date().toISOString()
          console.log("date",dateTime)
-      let a=  fs.writeFileSync(`${path}/${dateTime}.txt`,dateTime,'utf-8')
-      console.log("write",a)
-       let content = fs.readFileSync(`${path}/${dateTime}.txt`,'utf-8')
-       console.log("read",content)
+        fs.writeFileSync(`${ROUTE_CACHE_PATH}/${dateTime}.txt`,dateTime,{
+            encoding:'utf-8',
+             flags:'w+'
+        })
+       //let content = fs.readFileSync(`${ROUTE_CACHE_PATH}/${dateTime}.txt`,'utf-8')
+      // console.log("read",content)
         res.status(200).send({
             status:200,
             message:"Success",
-            dateTime:content
+        
         })
     } catch (error) {
         console.log(error)
