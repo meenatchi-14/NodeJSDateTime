@@ -3,6 +3,9 @@ import path from 'path';
 const ROUTE_CACHE_PATH =path.resolve(path.join(process.cwd(), 'src/asset'));
 const readWriteFile = async(req,res)=>{
     try {
+
+        let time=new Date().toLocaleTimeString()
+        console.log(time)
         let dateTime = new Date().toISOString()
          console.log("date",dateTime)
         fs.writeFileSync(`${ROUTE_CACHE_PATH}/${dateTime.split(":").join("")}.txt`,dateTime,{
@@ -14,7 +17,8 @@ const readWriteFile = async(req,res)=>{
         res.status(200).send({
             status:200,
             message:"Success",
-            DateTime:content
+            DateTime:content,
+            Time:time
         
         })
     } catch (error) {
